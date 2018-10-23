@@ -65,6 +65,10 @@ spec:
             mountPath: /etc/ksql/queries
           {{- end }}
           env:
+          {{- if .Values.schema_registry_url }}
+          - name: KSQL_OPTS
+            value: -Dksql.schema.registry.url={{ .Values.schema_registry_url }}
+          {{- end }}
           - name: KSQL_BOOTSTRAP_SERVERS
             value: {{ template "cp-ksql-server.kafka.bootstrapServers" . }}
           - name: KSQL_KSQL_SERVICE_ID
