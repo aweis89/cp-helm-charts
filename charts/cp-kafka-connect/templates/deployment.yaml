@@ -92,6 +92,10 @@ spec:
             - name: KAFKA_JMX_PORT
               value: "{{ .Values.jmx.port }}"
             {{- end }}
+            {{- range $key, $value := $.Values.env }}
+            - name: {{ $key }}
+              value: {{ $value | quote }}
+            {{- end }}
       volumes:
       {{- if .Values.prometheus.jmx.enabled }}
       - name: jmx-config
